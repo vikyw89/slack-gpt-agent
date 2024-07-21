@@ -2,45 +2,43 @@
 
 ## Overview
 
-This project is a Slack bot built using the `slack-bolt` framework and `FastAPI`. The bot listens for events such as mentions and messages, and responds accordingly.
+This project is a Slack bot built using the `slack-bolt` framework, `FastAPI`, `langgraph`. The bot listens for events such as mentions and messages, and responds accordingly.
 
 ## Setup
 
 ### Prerequisites
 
-- Python 3.12 or higher
+- Python 3.11 or higher
 - Poetry for dependency management
 
 ### Installation
 
 1. Clone the repository.
 2. Install dependencies using Poetry:
-   ```sh
+   ```bash
    poetry install
    ```
 
 ### Configuration
 
-Set the following environment variables in your `.env` file:
+copy .env example and fill all .env
 
-```sh
-SLACK_SIGNING_SECRET=***
-SLACK_CLIENT_ID=111.111
-SLACK_CLIENT_SECRET=***
-SLACK_SCOPES=app_mentions:read,channels:history,im:history,chat:write
+```bash
+cp .env.example .env
 ```
 
 ### Running the Development Server
 
 To run the development server, use the following command:
 
-```sh
+```bash
 poetry run dev
 ```
 
 This command will:
-- Terminate any process using port 3000.
-- Start the FastAPI server using `python -m app.main`.
+
+- Terminate any process using port 8000.
+- Start the FastAPI server.
 
 ## Features
 
