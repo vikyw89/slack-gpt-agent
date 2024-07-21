@@ -13,6 +13,7 @@ from langchain_core.messages import SystemMessage, AIMessageChunk
 
 app = AsyncApp()
 app_handler = AsyncSlackRequestHandler(app)
+BUNDLE_STREAM_CHUNK_SIZE = 10
 
 
 @app.event("app_mention")
@@ -39,7 +40,7 @@ async def handle_app_mentions(body, say, logger):
 
     slack_response = await say(" ")
     final_message_content = ""
-    BUNDLE_STREAM_CHUNK_SIZE = 10
+
     chunk_count = 0
     async for chunk in response_stream:
         logger.info(chunk)
@@ -89,14 +90,3 @@ async def install(req: Request):
 @api.get("/slack/oauth_redirect")
 async def oauth_redirect(req: Request):
     return await app_handler.handle(req)
-
-
-# pip install -r requirements.txt
-
-# # -- OAuth flow -- #
-# export SLACK_SIGNING_SECRET=***
-# export SLACK_CLIENT_ID=111.111
-# export SLACK_CLIENT_SECRET=***
-# export SLACK_SCOPES=app_mentions:read,channels:history,im:history,chat:write
-
-# uvicorn async_oauth_app:api --reload --port 3000 --log-level debug
