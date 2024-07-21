@@ -29,3 +29,4 @@ build-backend = "poetry.core.masonry.api"
 [tool.poetry.scripts]
 dev = "scripts.dev:run"
 lint = "scripts.lint:run"
+prod = "scripts.prod:run"
