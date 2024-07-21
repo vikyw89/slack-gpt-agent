@@ -1,4 +1,3 @@
-```markdown
 # Slack Bot
 
 ## Overview
@@ -63,9 +62,3 @@ Contributions are welcome! Please open an issue or submit a pull request for any
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-```
-
-### Notes
-
-- Ensure you have a `LICENSE` file in your repository if you intend to include licensing information.
-- The `.env` file should be included in your `.gitignore` to avoid exposing sensitive information.
