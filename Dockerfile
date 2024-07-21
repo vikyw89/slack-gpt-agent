@@ -1,22 +1,22 @@
-FROM python:3.12-slim AS base
-WORKDIR /app
-RUN apt-get update && apt-get install -y \
-    curl \
-    wget
+# BASE
+FROM python:3.11-slim AS base
+RUN apt-get update && apt-get install -y curl
 RUN pip install poetry==1.7.1
 
+# CODEBASE
 FROM base AS codebase
 WORKDIR /app
 COPY . .
 
+# DEVELOPMENT TARGET
 FROM codebase AS development
-WORKDIR /app
-RUN poetry install --no-interaction --no-ansi
+RUN poetry install --no-directory
 EXPOSE 8000
-CMD "poetry run uvicorn app.main:api --host 0.0.0.0 --port 8000 --reload"
+CMD poetry run dev
 
+
+# PRODUCTION TARGET
 FROM codebase AS production
-WORKDIR /app
-RUN poetry install --no-dev --no-interaction --no-ansi
+RUN poetry install --no-directory --without dev
 EXPOSE 8000
-CMD "poetry run uvicorn app.main:api --host 0.0.0.0 --port 8000 "
+CMD poetry run prod
