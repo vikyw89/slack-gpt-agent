@@ -1,23 +1,26 @@
 import logging
 import os
-
-from app.types import SlackEvent
-from app.utils import to_langchain_messages
-
-logging.basicConfig(level=logging.DEBUG, filemode="a+", filename="app.log")
-
 from slack_bolt.async_app import AsyncApp
 from slack_bolt.adapter.fastapi.async_handler import AsyncSlackRequestHandler
 from app.services.agents import runnable
 from langchain_core.messages import SystemMessage, AIMessageChunk
+from app.types.index import SlackEvent
+from app.utils import to_langchain_messages
 
-app = AsyncApp()
+
+logging.basicConfig(level=logging.DEBUG, filemode="a+", filename="app.log")
+app = AsyncApp(
+    signing_secret=os.getenv("SLACK_SIGNING_SECRET"),
+    token=os.getenv("SLACK_BOT_TOKEN")
+)
+
 app_handler = AsyncSlackRequestHandler(app)
 BUNDLE_STREAM_CHUNK_SIZE = 10
 
 
 @app.event("app_mention")
 async def handle_app_mentions(body, say, logger):
+    logger.info(body)
     event = SlackEvent(**body)
 
     # extract user id and chat history
@@ -69,6 +72,7 @@ async def handle_app_mentions(body, say, logger):
 
 @app.event("message")
 async def handle_message(body, say, logger):
+    logger.info(body)
     pass
 
 

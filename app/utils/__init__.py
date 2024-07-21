@@ -1,4 +1,4 @@
-from app.types import Message
+from app.types.index import Message
 from langchain_core.messages import HumanMessage, AIMessage
 
 

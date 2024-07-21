@@ -1,6 +1,6 @@
 # BASE
 FROM python:3.11-slim AS base
-RUN apt-get update && apt-get install -y curl
+RUN apt-get update && apt-get install -y curl && apt-get install -y wget
 RUN pip install poetry==1.7.1
 
 # CODEBASE
